@@ -10,8 +10,14 @@ function mapStateToProps(state) {
   
   function mapDispatchToProps(dispatch) {
     return {
-        give_point: () => {
-            dispatch(actions.give_point())
+        init_players: (players) => {
+            dispatch(actions.init_players(players))
+        },
+        give_point: (players,index) => {
+            dispatch(actions.give_point(players,index))
+        },
+        give_set: (players) => {
+            dispatch(actions.give_set(players))
         },
     };
   }
