@@ -4,6 +4,8 @@ export const SCORE_ACTIONS = {
     GIVE_SET_SUCCESSFUL: "SCORE_GIVE_SET_SUCCESSFUL",
     INIT_PLAYERS_SUCCESSFUL: "SCORE_INIT_PLAYERS_SUCCESSFUL",
     SWITCH_SERVER_SUCCESSFUL: "SCORE_SWITCH_SERVER_SUCCESSFUL",
+    WIN_THE_GMAE_SUCCESSFUL: "SCORE_WIN_THE_GMAE_SUCCESSFUL",
+    RESET_SCORE_SUCCESSFUL: "SCORE_RESET_SCORE_SUCCESSFUL",
 
     // CALCULATE_NON_CASH :"WORKBOOK_NON_CASH",
 
@@ -23,7 +25,7 @@ function init_players_successful(data) {
 function give_point_successful(data) {
     return {
         type: SCORE_ACTIONS.GIVE_POINT_SUCCESSFUL,
-        data: data
+        score: data
     }
 }
 
@@ -41,10 +43,23 @@ function give_set_successful(data) {
     }
 }
 
-function switch_server_successful(data) {
+function switch_server_successful() {
     return {
         type: SCORE_ACTIONS.SWITCH_SERVER_SUCCESSFUL,
-        data: data
+    }
+}
+
+function reset_current_score_successful() {
+    return {
+        type: SCORE_ACTIONS.RESET_SCORE_SUCCESSFUL,
+        data: [0, 0]
+    }
+}
+
+function win_the_game_successful(data) {
+    return {
+        type: SCORE_ACTIONS.WIN_THE_GMAE_SUCCESSFUL,
+        winner: data
     }
 }
 
@@ -55,128 +70,137 @@ export function init_players(players) {
     })
 }
 
-export function switch_server(players) {
+export function reset_current_score(players) {
     return ((dispatch, getState) => {
-        var p = { ...players[0],server:!players[0].server }
-        var o = { ...players[1],server:!players[1].server }
-        
-        dispatch(switch_server_successful([p,o]))
+        dispatch(reset_current_score_successful())
+    })
+}
+
+export function give_match() {
+    return ((dispatch, getState) => {
+        const players = getState().score.players;
+        const player_index = 0;
+        const opponent_index = player_index - 1 === 0 ? 0 : 1;
+        const player_sets = players[player_index].got_set.length !== 0 ? players[player_index].got_set.reduce((sum, value) => {
+            return sum + value;
+        }) : 0;
+        const opponent_sets = players[opponent_index].got_set.length !== 0 ? players[opponent_index].got_set.reduce((sum, value) => {
+            return sum + value;
+        }) : 0;
+
+        if (player_sets >= 3) {
+            dispatch(win_the_game_successful(players[player_index].name))
+        } else if (opponent_sets >=3){
+            dispatch(win_the_game_successful(players[opponent_index].name))
+        }
     })
 }
 
 export function give_set(players) {
     return ((dispatch, getState) => {
-        const index = 0;
-        const Player = {
-            ...players[index]
-        };
-        const opponent = {
-            ...players[index - 1 === 0 ? 0 : 1]
-        };
-        var set = [...Player.set];
-        var o_set = [...opponent.set];
+        var is_gave_set = false;
+        const player_index = 0;
+        const opponent_index = player_index - 1 === 0 ? 0 : 1;
+        const current_game = getState().score.current_game;
 
-        if ((Player.current_game >= 2 ||
-            opponent.current_game >= 2) &&
-            (Player.current_game - opponent.current_game >= 2 ||
-                opponent.current_game - Player.current_game >= 2))
-        {
-            
-            set.push(Player.current_game);
-            o_set.push(opponent.current_game);
-            // console.log('Hello set', set);// log is here
-            var p = {
-                ...Player,
-                set: set,
-                current_game: 0
+        var player = {
+            ...players[player_index],
+            set: [...players[player_index].set],
+            got_set: [...players[player_index].got_set],
+        }
+
+        var opponent = {
+            ...players[opponent_index],
+            set: [...players[opponent_index].set],
+            got_set: [...players[opponent_index].got_set],
+        }
+
+
+        if (current_game[player_index] >= 2 && current_game[player_index] - current_game[opponent_index] >= 2) {
+            updateSet(player_index)
+
+        } else if (current_game[opponent_index] >= 2 && current_game[opponent_index] - current_game[player_index] >= 2) {
+            updateSet(opponent_index)
+        }
+
+        function updateSet(INDEX) {
+            if (player_index === INDEX) {
+                // player got the set
+                player.got_set.push(1);
+                opponent.got_set.push(0);
+            } else {
+                player.got_set.push(0);
+                opponent.got_set.push(1);
             }
-            var o = {
-                ...opponent,
-                set: o_set,
-                current_game: 0
-            }
-            dispatch(give_set_successful([p, o]))
-        } 
+            player.set.push(current_game[player_index]);
+            opponent.set.push(current_game[opponent_index]);
+            is_gave_set = true;
+        }
+
+        is_gave_set ? dispatch(give_set_successful([player, opponent])) : false
     }
 
     )
 
 }
 
+export function give_game(index) {
+    return ((dispatch, getState) => {
+        const game = [...getState().score.current_game];
+        const opponent_index = index - 1 === 0 ? 0 : 1
+        game[index]++;
+        // console.log('Hello game', game);// log is here
+        dispatch(give_game_successful(game));
+        // give set down below
+        if ((game[index] >= 2 ||
+            game[opponent_index] >= 2) &&
+            (game[index] - game[opponent_index] >= 2 ||
+            game[opponent_index] - game[index] >= 2)) {
+            console.log('Hello game', game); // log is here
+        }
+    })
+}
+
 export function give_point(players, index) {
     return ((dispatch, getState) => {
 
         var is_game = false;
+        const is_match_over = getState().score.match_over;
+        var current_score = [...getState().score.current_point];
 
-        const Player = {
-            ...players[index]
-        };
-        const opponent = {
-            ...players[index - 1 === 0 ? 0 : 1]
-        };
-        // console.log('Hello index', index); // log is here
-        // console.log('Hello Player players', players); // log is here
-        // console.log('Hello Player game', Player); // log is here
-        // console.log('Hello opponent game', opponent); // log is here
-        var c = {}
-        if (Player.point === 0) {
-            Player.point = 15;
-        } else if (Player.point === 15) {
-            Player.point = 30;
-        } else if (Player.point === 30) {
-            Player.point = 40;
-        } else if (Player.point === 40) {
-            if (opponent.point === 40) {
-                Player.point = "AD";
-            } else if (opponent.point === "AD") {
-                Player.point = 40;
-                opponent.point = 40;
-            } else if (opponent.point !== 40) {
-                // Player.point = "Game";
-                getPoint();
+        const opponent_index = index - 1 === 0 ? 0 : 1
+
+        if (current_score[index] === 0) {
+            current_score[index] = 15;
+        } else if (current_score[index] === 15) {
+            current_score[index] = 30;
+        } else if (current_score[index] === 30) {
+            current_score[index] = 40;
+        } else if (current_score[index] === 40) {
+            if (current_score[opponent_index] === 40) {
+                current_score[index] = "AD";
+            } else if (current_score[opponent_index] === "AD") {
+                current_score[index] = 40;
+                current_score[opponent_index] = 40;
+            } else if (current_score[opponent_index] !== 40) {
+                // player gets the game;
+                dispatch(give_game(index));
+                is_game = true
             }
-        } else if (Player.point === "AD") {
-            if (opponent.point === 40) {
-                // Player.point = "Game";
-                getPoint();
+        } else if (current_score[index] === "AD") {
+            if (current_score[opponent_index] === 40) {
+                // player gets the game;
+                dispatch(give_game(index));
+                is_game = true
             }
         }
-        const data = [Player, opponent];
-        data.sort((a, b) => {
-            return a.id - b.id;
-        })
 
+        const op = current_score;
         if (is_game) {
-            dispatch(give_game_successful(data));
-            dispatch(switch_server(data));
-        } else {
-            dispatch(give_point_successful(data))
+            dispatch(reset_current_score_successful());
+            dispatch(switch_server_successful());
+        } else if(!is_match_over){
+            dispatch(give_point_successful(op))
         }
-
-        function getPoint() {
-            Player.point = 0;
-            opponent.point = 0;
-            is_game = true;
-            Player.current_game++;
-        }
-    // player.point = cal_point(player, opponent);
     })
-}
-
-function cal_point(player, opponent) {
-    if (player.point === 0) {
-        player.point = 15;
-    } else if (player.point === 15) {
-        player.point = 30;
-    } else if (player.point === 30) {
-        player.point = 40;
-    } else if (player.point === 40 && opponent.point === 40) {
-        player.point = "AD"
-    } else if (player.point === 40 && opponent.point !== 40 || player.point === "AD") {
-        player.point = "Game"
-    } else if (opponent.point === "AD") {
-        player.point = 40;
-    }
-
-
 }

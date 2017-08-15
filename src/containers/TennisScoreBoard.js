@@ -19,6 +19,12 @@ function mapStateToProps(state) {
         give_set: (players) => {
             dispatch(actions.give_set(players))
         },
+        give_match: () => {
+            dispatch(actions.give_match())
+        },
+        reset_current_score: () => {
+            dispatch(actions.reset_current_score())
+        },
     };
   }
   
