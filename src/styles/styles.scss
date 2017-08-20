@@ -34,7 +34,7 @@ video {
 }
 .container{
     position: relative;
-    top: 100px;
+    top: 50px;
     z-index: 110;
     display: flex;
     flex-direction: column;
@@ -52,7 +52,9 @@ video {
         width: 400px;
         background-color: #fff;
         border: 1px #d1d1d1 solid;
-        box-shadow: 1px 1px 1px 0 rgba(0,0,0,.1);
+        // box-shadow: 1px 1px 1px 0 rgba(0,0,0,.1);
+        border-radius: 6px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.16);
 
         .players_card_title{
             // height: 80px;
@@ -118,6 +120,8 @@ video {
             color: white;
             text-transform: uppercase;
             cursor: pointer;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
             &:hover{
                 background-image: linear-gradient(to bottom, #ffb199 0%, #ff0844 100%);
             }

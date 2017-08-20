@@ -9,12 +9,6 @@ import NotFoundPage from './components/NotFoundPage';
 import TennisScoreBoard from './containers/TennisScoreBoard';
 
 export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={HomePage}/>
-    <Route path="fuel-savings" component={FuelSavingsPage}/>
-    <Route path="about" component={AboutPage}/>
-    <Route path="tennis" component={TennisScoreBoard}/>
-    <Route path="*" component={NotFoundPage}/>
-    <Route path="*" component={NotFoundPage}/>
+  <Route path="/" component={TennisScoreBoard}>
   </Route>
 );
