@@ -1,31 +1,262 @@
-/* Variables */
-$vin-blue: #5bb7db;
-$vin-green: #60b044;
-$vin-red: #ff0000;
-
-/* Styles */
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,900');
+$row_height:70px;
 body {
-  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  line-height: 1.4em;
-  color: #4d4d4d;
-  min-width: 230px;
-  max-width: 550px;
-  margin: 0 auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  font-smoothing: antialiased;
-  font-weight: 300;
+    background-color: #fff;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-td {
-	padding: 12px;
+div,img{
+    box-sizing: border-box;
 }
 
-h2 {
-	color: $vin-blue;
+.bg_{
+    position: relative;
 }
 
-.savings { color: $vin-green; }
-.loss { color: $vin-red; }
-input.small { width: 46px; }
-td.fuel-savings-label { width: 175px; }
+.bg_grid_dots{
+    position: fixed;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    background:url('dot.png');
+}
+
+video { 
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    opacity: .6;
+}
+.container{
+    position: relative;
+    top: 100px;
+    z-index: 110;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.players_cards{
+    width: 900px;
+    // background-color: orange;
+    display: flex;
+    justify-content:space-between;
+    margin-bottom: 50px;
+
+    .players_card{
+        width: 400px;
+        background-color: #fff;
+        border: 1px #d1d1d1 solid;
+        box-shadow: 1px 1px 1px 0 rgba(0,0,0,.1);
+
+        .players_card_title{
+            // height: 80px;
+            padding: 15px;
+            font-weight: 300;
+        }
+        .players_card_title_first_name{
+            margin-bottom: 15px;
+        }
+        .players_card_title_last_name{
+            font-size: 38px;
+        }
+        .players_card_photo{
+            height: 220px;
+            // position: absolute;
+            img{
+                width: 398px;
+                height: auto;
+            }
+        }
+        .players_card_description{
+            display: flex;
+            flex-wrap:wrap;
+            background-color: #39494E;
+            padding: 20px;
+        }
+        .players_card_description_item{
+            width: 30%;
+            margin-bottom: 15px;
+            flex-grow:2;
+        }
+        .players_card_description_item_title{
+            font-size: 12px;
+            color: #b2b3b4;
+        }
+        .players_card_description_item_value{
+            font-size: 32px;
+            color: #fff;
+            .players_card_description_item_value_unit{
+                font-size: 12px;
+                margin-left: 5px;
+            }
+        }
+        .players_card_social_media{
+            position: relative;
+            width: 100%;
+            top: -30px;
+            padding-right: 5px;
+            text-align: right;
+            img{
+                width: 20px;
+            }
+        }
+        .players_card_addPoint{
+            background: #e53935;
+            background: linear-gradient(to bottom, #e35d5b, #e53935);
+            height: 80px;
+            display: flex;
+            justify-content:center;
+            align-items:center;
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+            text-transform: uppercase;
+            cursor: pointer;
+            &:hover{
+                background-image: linear-gradient(to bottom, #ffb199 0%, #ff0844 100%);
+            }
+        }
+    }
+}
+
+
+.players_score_board{
+    width: 600px;
+    background-color: red;
+    position: relative;
+}
+.player_row {
+    background-color: black;
+    float: left;
+    position: absolute;
+    height: $row_height;
+    &:nth-child(2){
+        top: 71px;
+    }
+}
+
+.opponent {
+    top: 79px;
+}
+
+.player_nation {
+    float: left;
+    position: absolute;
+    width: 60px;
+    height: 100%;
+    margin-left: 8px;
+    .player_nation_name {
+        color: white;
+        margin: 10px 0;
+        font-size: 22px;
+    }
+    .player_nation_flag {
+        position: absolute;
+        bottom: 0;
+        right: 20px;
+        width: 37px;
+        transform: skew(-20deg);
+    }
+}
+
+.player_name {
+    float: left;
+    height: 100%;
+    position: absolute;
+    .player_name_id {
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        z-index: 101;
+        left: 100px;
+        color: #fff;
+        line-height: $row_height;
+        font-size: 38px;
+        width: 280px;
+    }
+    .player_name_bg {
+        position: absolute;
+        // width: 320px;
+        z-index: 100;
+        top: 0;
+        bottom: 0;
+        left: 60px;
+        background: #e53935;
+        background: linear-gradient(to bottom, #e35d5b, #e53935);
+        transform: skew(-20deg);
+    }
+    .player_name_server{
+        width: 320px;
+        animation-delay: 2s;
+        animation: server_animation 2s;
+    }
+    
+    .player_name_not_server{
+        width: 0;
+        // animation-delay: 2s;
+        animation: not_server_animation 2s;
+    }
+}
+
+.player_score {
+    float: right;
+    height: 100%;
+    margin-left: 380px;
+    margin-right: -60px;
+    div {
+        float: left;
+    }
+    .player_score_got_set {
+        background-color: gold;
+        color: black;
+    }
+}
+
+.player_score_game,
+.player_score_point {
+    color: white;
+    font-size: 38px;
+    height: 100%;
+    line-height: $row_height;
+    padding: 0 20px;
+    transform: skew(-20deg);
+    border-left: 2px solid white;
+}
+
+.player_score_game {
+    span.gold {
+        color: gold;
+    }
+}
+
+.player_score_point {
+    width: 90px;
+    margin-right: 30px;
+    background: #e53935;
+    background: linear-gradient(to bottom, #e35d5b, #e53935);
+    color: white;
+}
+
+@keyframes server_animation {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 320px;
+    }
+}
+
+@keyframes not_server_animation {
+    0% {
+        width: 320px;
+    }
+    100% {
+        width: 0;
+    }
+}
