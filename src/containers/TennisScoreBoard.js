@@ -4,7 +4,8 @@ import * as actions from '../actions/scoreBoardActions';
 
 function mapStateToProps(state) {
     return {
-      score: state.score
+        score: state.score,
+      players: state.score.players,
     };
   }
   

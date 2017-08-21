@@ -55,6 +55,7 @@ video {
         // box-shadow: 1px 1px 1px 0 rgba(0,0,0,.1);
         border-radius: 6px;
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.16);
+        transition: filter 2s;
 
         .players_card_title{
             // height: 80px;
@@ -131,7 +132,7 @@ video {
 
 
 .players_score_board{
-    width: 600px;
+    width: 650px;
     background-color: red;
     position: relative;
 }
@@ -187,6 +188,7 @@ video {
     .player_name_bg {
         position: absolute;
         // width: 320px;
+        transition: width 2s;
         z-index: 100;
         top: 0;
         bottom: 0;
@@ -217,8 +219,9 @@ video {
         float: left;
     }
     .player_score_got_set {
-        background-color: gold;
-        color: black;
+        // background-color: gold;
+        // color: black;
+        color: gold;
     }
 }
 
@@ -245,6 +248,25 @@ video {
     background: #e53935;
     background: linear-gradient(to bottom, #e35d5b, #e53935);
     color: white;
+}
+
+.footer{
+    position: fixed;
+    z-index: 120;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 35px;
+    text-align: center;
+    padding: 5px 0;
+    background-image: linear-gradient(to bottom, #cfd9df 0%, #e2ebf0 100%);
+    img{
+        width: 20px;
+        margin-right: 8px;
+    }
+    p{
+        margin: 0;
+    }
 }
 
 @keyframes server_animation {

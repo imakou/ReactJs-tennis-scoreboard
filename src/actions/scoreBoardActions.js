@@ -88,10 +88,10 @@ export function give_match() {
             return sum + value;
         }) : 0;
 
-        if (player_sets >= 3) {
-            dispatch(win_the_game_successful(players[player_index].name))
-        } else if (opponent_sets >=3){
-            dispatch(win_the_game_successful(players[opponent_index].name))
+        if (player_sets >= 2) {
+            dispatch(win_the_game_successful(player_index))
+        } else if (opponent_sets >=2){
+            dispatch(win_the_game_successful(opponent_index))
         }
     })
 }
@@ -126,11 +126,11 @@ export function give_set(players) {
         function updateSet(INDEX) {
             if (player_index === INDEX) {
                 // player got the set
-                player.got_set.push(1);
-                opponent.got_set.push(0);
+                    player.got_set.push(1);
+                    opponent.got_set.push(0);
             } else {
-                player.got_set.push(0);
-                opponent.got_set.push(1);
+                    player.got_set.push(0);
+                    opponent.got_set.push(1);
             }
             player.set.push(current_game[player_index]);
             opponent.set.push(current_game[opponent_index]);
@@ -161,7 +161,7 @@ export function give_game(index) {
     })
 }
 
-export function give_point(players, index) {
+export function give_point(index) {
     return ((dispatch, getState) => {
 
         var is_game = false;
