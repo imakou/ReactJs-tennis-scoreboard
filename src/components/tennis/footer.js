@@ -6,7 +6,7 @@ class Footer extends Component {
     render() {
         return (
             <div className="footer">
-                <p><img src={GithubSVG} alt="Github"/>Github | Media resource: <a target="_blank" href="http://www.atpworldtour.com/">ATPworldtour.com</a></p>
+                <p><img src={GithubSVG} alt="Github"/><a target="_blank" href="https://github.com/imakou/ReactJs-tennis-scoreboard">Github</a> | Media resource: <a target="_blank" href="http://www.atpworldtour.com/">ATPworldtour.com</a></p>
             </div>
         );
     }

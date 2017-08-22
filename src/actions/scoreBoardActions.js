@@ -116,10 +116,10 @@ export function give_set(players) {
         }
 
 
-        if (current_game[player_index] >= 2 && current_game[player_index] - current_game[opponent_index] >= 2) {
+        if (current_game[player_index] >= 6 && current_game[player_index] - current_game[opponent_index] >= 2) {
             updateSet(player_index)
 
-        } else if (current_game[opponent_index] >= 2 && current_game[opponent_index] - current_game[player_index] >= 2) {
+        } else if (current_game[opponent_index] >= 6 && current_game[opponent_index] - current_game[player_index] >= 2) {
             updateSet(opponent_index)
         }
 

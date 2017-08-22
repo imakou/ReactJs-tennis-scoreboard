@@ -27,9 +27,7 @@ class TennisScoreBoard extends Component {
                 },
                 point: 0,
                 set: [],
-                match: 0,
                 got_set: [],
-                win: false,
                 server: true,
             },
             {
@@ -49,9 +47,7 @@ class TennisScoreBoard extends Component {
                 },
                 point: 0,
                 set: [],
-                match: 0,
                 got_set: [],
-                win: false,
                 server: false,
             }
         ];
