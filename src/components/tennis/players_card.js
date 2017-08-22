@@ -60,7 +60,7 @@ class Players_card extends Component {
                 </div>
                 <div className="players_card_description_item">
                   <div className="players_card_description_item_title">W-L</div>
-                  <div className="players_card_description_item_value">{ player["W-L"] }<span className="players_card_description_item_value_unit">(2017)</span></div>
+                  <div className="players_card_description_item_value">{ player.personal_info["W-L"] }<span className="players_card_description_item_value_unit">(2017)</span></div>
                 </div>
               </div>
               <div className="players_card_addPoint" onClick={this.handelGivePoint.bind(this, index)}>
