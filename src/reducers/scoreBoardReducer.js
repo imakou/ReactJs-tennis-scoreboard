@@ -20,7 +20,6 @@ const initialState = {
     current_set: 1,
     current_server:0,
     winner: "",
-    match_over: false,
 }
 
 
