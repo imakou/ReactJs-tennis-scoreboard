@@ -3,7 +3,7 @@ In summer 2017, I went to the Rogers cup in Toronto, and I saw the scoreboard th
 
 <img src="https://user-images.githubusercontent.com/1507950/29543642-877e48be-86b0-11e7-9fff-5366c80434d3.png" width="650">
 
-<a href="https://gyazo.com/097598b497e043568449e754c911f14d"><img src="https://i.gyazo.com/097598b497e043568449e754c911f14d.gif" alt="https://gyazo.com/097598b497e043568449e754c911f14d" width="650"/></a>
+<img src="https://user-images.githubusercontent.com/1507950/29543850-1aa1fdec-86b2-11e7-955d-cc10ccda4a87.png" width="650">
 
 
 ## Project Structure
