@@ -5,7 +5,7 @@ import '../styles/styles.scss'
 import Background from './tennis/background'
 import Players_card from './tennis/players_card'
 import ScoreBoard from './tennis/scoreBoard'
-import Footer from './tennis/Footer'
+import Footer from './tennis/footer'
 
 class TennisScoreBoard extends Component {
     componentDidMount() {
