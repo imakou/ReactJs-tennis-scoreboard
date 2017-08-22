@@ -50,7 +50,7 @@ In summer 2017, I went to the Rogers cup in Toronto, and I saw the scoreboard th
     +  give_point()
     +  reset_current_score()
 
-## Resources
+## References
 + Starter - [React Slingshot](https://github.com/coryhouse/react-slingshot)
 + Media(pics, video) - [ATPworldtour.com](atpworldtour.com)
 + UI - [Rogers cup](rogerscup.com)
