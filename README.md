@@ -1,5 +1,9 @@
 ## A tennis scoreboard by React/Redux / [DEMO](http://tennis-scoreboard.surge.sh/)
-In summer 2017, I went to the Rogers cup in Toronto, and I saw the scoreboard that has a very nice UI. So, I want to make a web version for the scoreboard. In this case, I use React and Redux to reach this project.
+A tennis scoreboard UI by React.js
+
+In summer 2017, I went to Rogers cup in Toronto, and I saw the scoreboard that has a very nice UI. 
+
+So, that's the reason this project was created. I use React and Redux to reach this project.
 
 <img src="https://user-images.githubusercontent.com/1507950/29543642-877e48be-86b0-11e7-9fff-5366c80434d3.png" width="650">
 
